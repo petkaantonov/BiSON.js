@@ -9,7 +9,7 @@ class BitStreamReader extends BitStream {
     public function open( $data ) {
         $this->max = strlen( $data );
         $this->index = 0;
-        $this->input = unpack( "C*", $data );
+        $this->input = array_merge(unpack( "C*", $data ));
         $this->value = $this->input[0];
     }
     
@@ -25,7 +25,10 @@ class BitStreamReader extends BitStream {
             $this->left = 8;
         }
         
-        $data = array_slice( $this->input, $this->index, $count );
+        $data = "";
+        for( $i = 0; $i < $count; ++$i ) {
+            $data .= chr( $this->input[$this->index+$i] );
+        }
         
         $this->index += $count;
         $this->value = $this->input[$this->index];
@@ -49,7 +52,7 @@ class BitStreamReader extends BitStream {
         $left -= $use;
 
         if( $left === 0 ) {
-            $this->value = $this->input[ ++$this->index ];
+            $this->value = @$this->input[ ++$this->index ];
             $this->left = 8;
             if( $overflow > 0 ) {
                 $val = $val << $overflow | $this->read( $overflow );

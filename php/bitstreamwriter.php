@@ -35,7 +35,7 @@ class BitStreamWriter extends BitStream {
             $this->value = 0;
             
             if( $overflow > 0 ) {
-                $this->write( $this->value & self::$powTable[$overflow], $overflow );
+                $this->write( $val & self::$powTable[$overflow], $overflow );
             }
                    
         }

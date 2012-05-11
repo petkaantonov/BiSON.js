@@ -89,7 +89,7 @@ class BISON {
                     
                     while( $step <= $value ) {
                         $shift++;
-                        $step * 10;
+                        $step *= 10;
                     }
                     
                     $shift = ( 8 - $shift ) + 1;
@@ -99,6 +99,7 @@ class BISON {
                         $value /= 10;
                         $shift--;
                     }
+                    
                 }
                 
                 
